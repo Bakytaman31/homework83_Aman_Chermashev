@@ -45,11 +45,13 @@ router.post('/track_history', async (req, res) => {
         res.status(401).send({error: 'No user with this token'});
     }
     const obj = {
-        user: user._id,
+        userId: user._id,
         track: req.body.track
     };
     const trackHistory = new TrackHistory(obj);
+    await trackHistory.save();
     return res.send(trackHistory);
 });
+
 
 module.exports = router;
